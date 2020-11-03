@@ -23,11 +23,13 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView itemText;
+        private TextView itemName;
+        private TextView itemSurname;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemText = itemView.findViewById(R.id.name);
+            itemName = itemView.findViewById(R.id.name);
+            itemSurname = itemView.findViewById(R.id.surname);
         }
     }
 
@@ -41,7 +43,8 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ViewHolder) holder).itemText.setText(models.get(position).getName());
+        ((ViewHolder) holder).itemName.setText(models.get(position).getName());
+        ((ViewHolder) holder).itemSurname.setText(models.get(position).getSurname());
     }
 
     @Override

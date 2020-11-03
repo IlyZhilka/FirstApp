@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot :dataSnapshot.getChildren()){
                     Data data = new Data();
-                    data.setName(snapshot.child("text").getValue().toString());
+                    data.setName(snapshot.child("name").getValue().toString());
+                    data.setSurname(snapshot.child("surname").getValue().toString());
                     dataList.add(data);
                 }
                 adapter = new Adapter(getApplicationContext(),dataList);
