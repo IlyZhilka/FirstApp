@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rv_main);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
+
 
         myRef = FirebaseDatabase.getInstance().getReference();
 
         dataList = new ArrayList<>();
-
 
 
         getDataFromDb();
@@ -57,8 +59,9 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot :dataSnapshot.getChildren()){
                     Data data = new Data();
-                    data.setName(snapshot.child("name").getValue().toString());
-                    data.setSurname(snapshot.child("surname").getValue().toString());
+                    data.setImage(snapshot.child("image").getValue().toString());
+                    data.setTitle(snapshot.child("title").getValue().toString());
+                    data.setBodyInfo(snapshot.child("bodyInfo").getValue().toString());
                     dataList.add(data);
                 }
                 adapter = new Adapter(getApplicationContext(),dataList);

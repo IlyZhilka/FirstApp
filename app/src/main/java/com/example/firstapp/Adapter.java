@@ -4,10 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -23,13 +27,16 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView itemName;
-        private TextView itemSurname;
+         ImageView imageView;
+         TextView title;
+         TextView bodyInfo;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemName = itemView.findViewById(R.id.name);
-            itemSurname = itemView.findViewById(R.id.surname);
+            imageView = itemView.findViewById(R.id.imageView);
+            title = itemView.findViewById(R.id.title);
+            bodyInfo = itemView.findViewById(R.id.bodyInfo);
+
         }
     }
 
@@ -42,9 +49,12 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ViewHolder) holder).itemName.setText(models.get(position).getName());
-        ((ViewHolder) holder).itemSurname.setText(models.get(position).getSurname());
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position ) {
+        ((ViewHolder) holder).title.setText(models.get(position).getTitle());
+        ((ViewHolder) holder).bodyInfo.setText(models.get(position).getBodyInfo());
+        Glide.with(context)
+                .load(models.get(position).getImage())
+                .into( ((ViewHolder) holder).imageView);
     }
 
     @Override

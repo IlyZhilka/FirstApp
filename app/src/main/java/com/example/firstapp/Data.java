@@ -1,33 +1,47 @@
 package com.example.firstapp;
 
+import android.widget.ImageView;
+
 public class Data {
 
-    private String name;
 
-    private String surname;
 
-    public Data(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-    }
+    private String image;
+
+    private String title;
+
+    private String bodyInfo;
 
     public Data() {
     }
 
-
-    public String getName() {
-        return name;
+    public Data(String image, String title, String bodyInfo) {
+        this.image = image;
+        this.title = title;
+        this.bodyInfo = bodyInfo;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getImage() {
+        return image;
     }
 
-    public String getSurname() {
-        return surname;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getBodyInfo() {
+        return bodyInfo;
+    }
+
+    public void setBodyInfo(String bodyInfo) {
+        this.bodyInfo = bodyInfo;
     }
 }
