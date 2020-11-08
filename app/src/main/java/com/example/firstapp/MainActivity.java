@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements Adapter.OnClickListener{
+public class MainActivity extends AppCompatActivity implements Adapter.OnClickListener,MainPresenter.View{
 
     RecyclerView recyclerView;
 
@@ -30,9 +30,14 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnClickLi
 
     private ArrayList<Data> dataList;
 
+    private MainPresenter.Model model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        model = new MainModel(this);
+        model.start();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -88,5 +93,10 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnClickLi
         Intent intent = new Intent(this, SecondActivity.class);
         intent.putExtra("keyIntent", bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void initViews() {
+
     }
 }
