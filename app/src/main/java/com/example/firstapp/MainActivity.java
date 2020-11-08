@@ -1,7 +1,9 @@
 package com.example.firstapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Adapter.OnClickListener{
 
     RecyclerView recyclerView;
 
@@ -28,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Data> dataList;
 
-    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rv_main);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
@@ -49,11 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
         getDataFromDb();
 
+
+
     }
 
     private void getDataFromDb() {
         Query query = myRef.child("info");
-
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     dataList.add(data);
                 }
                 adapter = new Adapter(getApplicationContext(),dataList);
+                adapter.setOnClickListener(MainActivity.this);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
@@ -75,5 +77,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    public void onClick(Data model) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("keyModel", model);
+
+        Intent intent = new Intent(this, SecondActivity.class);
+        intent.putExtra("keyIntent", bundle);
+        startActivity(intent);
     }
 }

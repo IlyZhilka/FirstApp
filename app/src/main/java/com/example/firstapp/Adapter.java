@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +20,15 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private ArrayList<Data> models;
+    private OnClickListener onClickListener;
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    interface OnClickListener{
+        void onClick(Data model);
+    }
 
     public Adapter(Context context, ArrayList<Data> models){
         this.context = context;
@@ -27,16 +37,17 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-         ImageView imageView;
-         TextView title;
-         TextView bodyInfo;
+        ImageView imageView;
+        TextView title;
+        TextView bodyInfo;
+        CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             title = itemView.findViewById(R.id.title);
             bodyInfo = itemView.findViewById(R.id.bodyInfo);
-
+            cardView = itemView.findViewById(R.id.card_view);
         }
     }
 
@@ -55,6 +66,12 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Glide.with(context)
                 .load(models.get(position).getImage())
                 .into( ((ViewHolder) holder).imageView);
+        ((ViewHolder) holder).cardView.setOnClickListener(v -> {
+            if(onClickListener != null){
+                onClickListener.onClick(models.get(position));
+            }
+        });
+
     }
 
     @Override

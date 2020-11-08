@@ -2,7 +2,9 @@ package com.example.firstapp;
 
 import android.widget.ImageView;
 
-public class Data {
+import java.io.Serializable;
+
+public class Data implements Serializable {
 
 
 
